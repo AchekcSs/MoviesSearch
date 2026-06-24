@@ -2,6 +2,9 @@
 
 A modern, responsive web application for discovering and exploring movies and TV shows. Built with React, Vite, and TMDB API, this application provides users with an intuitive interface to search, filter, and save their favorite content.
 
+## 🚀 Live Demo
+- https://movies-search-sigma-lime.vercel.app/
+
 ## 🎯 Overview
 
 Movie Search App is a full-featured entertainment discovery platform that integrates with The Movie Database (TMDB) API. It allows users to search for movies and TV shows, apply advanced filters, view detailed information, manage favorites, and enjoy a seamless experience across all devices with a responsive design and dark/light theme support.
