@@ -9,6 +9,8 @@ const ContentSeasonsList = ({ seasons = [], contentType, seriesId }) => {
     return null;
   }
 
+  console.log(seasons)
+
   return (
     <section className="w-full mb-30">
       <TypographyH3 className="mb-6">Seasons:</TypographyH3>

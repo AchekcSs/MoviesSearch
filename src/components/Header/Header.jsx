@@ -48,7 +48,7 @@ const Header = () => {
             onClick={() => setIsMobileMenuOpen(false)}
           />
           <div
-            className="absolute left-0 right-0 top-full rounded-b-md border border-border bg-background py-4 px-6 md:hidden flex justify-between items-center z-20"
+            className="absolute left-0 right-0 top-full border border-border bg-background py-4 px-6 md:hidden flex justify-between items-center z-20"
             onClick={(event) => event.stopPropagation()}
           >
             <div className="flex flex-col gap-3">

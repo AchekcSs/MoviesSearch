@@ -83,7 +83,6 @@ const ContentDetailsPage = () => {
   };
 
   const contentVideoTrailerUrl = getTrailerUrl(contentVideoTrailer);
-  console.log(images);
 
   return (
     <>

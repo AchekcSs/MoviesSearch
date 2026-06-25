@@ -22,6 +22,7 @@ const FiltersPanel = () => {
       <div className="flex items-center gap-4 flex-wrap">
         {!isSearched && (
           <>
+          <span>Filters:</span>
             <Combobox
               items={genres}
               value={searchParams.genreName}

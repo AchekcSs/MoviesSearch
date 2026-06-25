@@ -19,12 +19,14 @@ const ContentList = () => {
   return (
     <section className="flex flex-col items-center gap-12 pt-10 pb-30">
       {searchParams.query !== "" && (
-        <h2 className="text-4xl text-center font-medium max-w-xxl">
-          <span className="text-muted-foreground font-regular">Shoving </span>
-          {totalResults} <span className="text-muted-foreground font-regular">results for </span> "{searchParams.query}"
+        <div>
+          <h2 className="text-4xl text-center font-medium max-w-xxl mb-6">
+            <span className="text-muted-foreground font-regular">Shoving </span>
+            {totalResults} <span className="text-muted-foreground font-regular">results for </span> <span className="break-all">"{searchParams.query}"</span>
+          </h2>
           {totalResults === 0 && (
-            <div className="flex items-center gap-4 mt-4">
-              <h2 className="">
+            <div className="flex flex-col items-center gap-4 text-4xl">
+              <h2 className="text-center">
                 <span className="text-muted-foreground font-regular">Want to see</span>{" "}
                 {searchParams.contentType === "movies" ? "shows" : "movies"}{" "}
                 <span className="text-muted-foreground font-regular">instead?</span>
@@ -51,7 +53,7 @@ const ContentList = () => {
               </Button>
             </div>
           )}
-        </h2>
+        </div>
       )}
       {totalResults !== 0 && <FiltersPanel />}
       <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">

@@ -17,16 +17,19 @@ const ContentCard = ({
   seasonNumber,
 }) => {
   const contentInfo = { id, contentType, title, releaseDate, voteAverage, posterPath, seasonNumber };
+  const hasSeasonNumber = seasonNumber !== undefined && seasonNumber !== null
 
   let targetPath = `/${contentType}/${id}`;
 
   if (favoritesPath) {
-    targetPath = seasonNumber ? `/favorites/${contentType}/${id}/${seasonNumber}` : `/favorites/${contentType}/${id}`;
+    targetPath = hasSeasonNumber ? `/favorites/${contentType}/${id}/${seasonNumber}` : `/favorites/${contentType}/${id}`;
   } else {
-    if (seasonNumber) {
+    if (hasSeasonNumber) {
       targetPath = `/${contentType}/${id}/${seasonNumber}`;
     }
   }
+
+  console.log(targetPath)
 
   return (
     <Link to={targetPath}>
