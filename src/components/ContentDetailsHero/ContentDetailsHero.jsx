@@ -3,8 +3,10 @@ import TypographyH2 from "@/components/Typography/TypographyH2/TypographyH2";
 import TypographyP from "@/components/Typography/TypographyP/TypographyP";
 import { TMDB_POSTER_URL } from "@/constants/tmdb";
 import { StarIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const ContentDetailsHero = ({
+  id,
   posterPath,
   title = "Unknown title",
   voteAverage = "?",
@@ -14,15 +16,37 @@ const ContentDetailsHero = ({
   genres = [],
   overview = "No description available.",
   episodesCount,
+  seasonNumber,
+  contentType,
+  isBookmarked = false,
+  onBookmarkToggle,
 }) => {
+  const contentInfo = {
+    id,
+    title,
+    contentType,
+    releaseDate,
+    voteAverage,
+    posterPath,
+    seasonNumber
+  }
+
   return (
     <section className="w-full lg:h-150 flex flex-col lg:flex-row items-center mb-20 gap-16 justify-center">
-      <div className="outline min-h-120 h-120 max-h-120 w-80 rounded-md overflow-hidden flex items-center justify-center">
-        <img
-          src={posterPath ? `${TMDB_POSTER_URL}${posterPath}` : "/src/assets/images/image-not-found.svg"}
-          alt=""
-          className="w-full h-full object-cover"
-        />
+      <div className="flex flex-col gap-4">
+        <div className="outline min-h-120 h-120 max-h-120 w-80 rounded-md overflow-hidden flex items-center justify-center">
+          <img
+            src={posterPath ? `${TMDB_POSTER_URL}${posterPath}` : "/src/assets/images/image-not-found.svg"}
+            alt=""
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <Button onClick={(event) => {
+          event.preventDefault()
+          event.stopPropagation()
+
+          onBookmarkToggle?.(contentInfo)
+        }}>{isBookmarked ? "Remove From Favorites" : "Add To Favorites"}</Button>
       </div>
       <div className="relative w-full lg:max-w-150">
         <div className="flex items-center gap-6 mb-8">

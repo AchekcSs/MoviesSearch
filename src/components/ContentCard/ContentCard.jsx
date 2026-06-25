@@ -29,8 +29,6 @@ const ContentCard = ({
     }
   }
 
-  console.log(targetPath)
-
   return (
     <Link to={targetPath}>
       <div className="outline min-h-130 w-full rounded-md overflow-hidden transition-transform duration-300 md:hover:scale-102 relative">
@@ -52,7 +50,7 @@ const ContentCard = ({
           <span className="text-muted-foreground font-semibold">{releaseDate ? releaseDate.slice(0, 4) : "????"}</span>
         </div>
         <Button
-          className="py-5.5 absolute top-3 right-3"
+          className="py-5.5 absolute top-3 right-3 hidden md:flex"
           onClick={(event) => {
             event.preventDefault();
             event.stopPropagation();

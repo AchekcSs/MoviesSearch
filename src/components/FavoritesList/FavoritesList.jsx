@@ -23,9 +23,11 @@ const FavoritesList = () => {
       </div>
       <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {favoritesList.map(({ id, contentType, title, releaseDate, voteAverage, posterPath, seasonNumber }) => {
+          const itemKey = `${id}${seasonNumber ? `-s${seasonNumber}` : ""}`;
+
           return (
           <ContentCard
-            key={id}
+            key={itemKey}
             id={id}
             contentType={contentType}
             title={title}

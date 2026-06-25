@@ -9,14 +9,14 @@ const ContentSeasonsList = ({ seasons = [], contentType, seriesId }) => {
     return null;
   }
 
-  console.log(seasons)
-
   return (
     <section className="w-full mb-30">
       <TypographyH3 className="mb-6">Seasons:</TypographyH3>
       <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {seasons.map(({ id, name, air_date, poster_path, vote_average, season_number }) => {
-          const isFavorite = favoritesList.some((fav) => fav.id === seriesId && fav.seasonNumber === season_number);
+          const isFavorite = favoritesList.some(
+            (fav) => fav.id === String(seriesId) && fav.seasonNumber === String(season_number)
+          );
 
           return (
             <ContentCard

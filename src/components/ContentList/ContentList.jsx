@@ -69,7 +69,7 @@ const ContentList = () => {
             {sortedMovies.map(({ id, original_title, name, release_date, first_air_date, vote_average, poster_path }) => {
               const displayTitle = original_title || name;
               const displayDate = release_date || first_air_date;
-              const isFavorite = favoritesList.some((fav) => fav.id === id);
+              const isFavorite = favoritesList.some((fav) => fav.id === String(id));
 
               return (
                 <ContentCard

@@ -11,9 +11,11 @@ import { Spinner } from "@/components/ui/spinner";
 import ContentSeasonsList from "@/components/ContentSeasonsList/ContentSeasonsList";
 import ContentDetailsTrailer from "@/components/ContentDetailsTrailer/ContentDetailsTrailer";
 import { scrollToTop } from "@/utils/scrollToTop";
+import { useFavorites } from "@/contexts/FavoritesContext";
 
 const ContentDetailsPage = () => {
   const { id, contentType, seasonNumber } = useParams();
+  const { toggleFavorite, favoritesList } = useFavorites();
   const location = useLocation();
 
   const isFavorites = location.pathname.startsWith("/favorites");
@@ -84,6 +86,25 @@ const ContentDetailsPage = () => {
 
   const contentVideoTrailerUrl = getTrailerUrl(contentVideoTrailer);
 
+  const title = content.title || content.name;
+  const releaseDate = content.release_date || content.first_air_date || content.air_date || "?";
+  const voteAverage = content.vote_average ? +content.vote_average.toFixed(1) : 0;
+
+  const hasSeasonNumber = seasonNumber !== undefined && seasonNumber !== null && seasonNumber !== "";
+
+  const routeId = String(id);
+  const routeSeason = hasSeasonNumber ? String(seasonNumber) : undefined;
+
+  const isFavorite = favoritesList.some((fav) => {
+    if (fav.id !== routeId) return false;
+
+    if (routeSeason !== undefined) {
+      return fav.seasonNumber !== undefined && fav.seasonNumber === routeSeason;
+    }
+
+    return fav.seasonNumber === undefined;
+  });
+
   return (
     <>
       <Header />
@@ -97,19 +118,33 @@ const ContentDetailsPage = () => {
             isFavorites={isFavorites}
           />
           <ContentDetailsHero
+            id={content.id}
             posterPath={content.poster_path}
-            title={content.title || content.name}
-            voteAverage={content.vote_average ? content.vote_average.toFixed(1) : "?"}
-            releaseDate={content.release_date || content.first_air_date || content.air_date || "?"}
+            title={title}
+            voteAverage={voteAverage}
+            releaseDate={releaseDate}
             status={content.status || "?"}
             runtime={content.runtime}
             genres={content.genres || []}
             overview={content.overview || "No overview available."}
             episodesCount={content?.episodes?.length}
+            isBookmarked={isFavorite}
+            seasonNumber={seasonNumber}
+            onBookmarkToggle={() =>
+              toggleFavorite({
+                id: id,
+                contentType,
+                title,
+                releaseDate,
+                voteAverage,
+                posterPath: content.poster_path,
+                seasonNumber,
+              })
+            }
           />
           {contentVideoTrailer && !isTVSeries && <ContentDetailsTrailer trailer={contentVideoTrailerUrl} />}
           {!seasonNumber && images && images.length !== 0 && <ContentImagesSection images={images} />}
-          {isTVSeries && !isFavorites && <ContentSeasonsList seasons={content.seasons} contentType={contentType} seriesId={id} />}
+          {isTVSeries && !seasonNumber && <ContentSeasonsList seasons={content.seasons} contentType={contentType} seriesId={id} />}
         </main>
       </Container>
       <Footer />
