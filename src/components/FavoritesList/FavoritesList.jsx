@@ -22,7 +22,8 @@ const FavoritesList = () => {
         <ClearFavoritesButton />
       </div>
       <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {favoritesList.map(({ id, contentType, title, releaseDate, voteAverage, posterPath }) => (
+        {favoritesList.map(({ id, contentType, title, releaseDate, voteAverage, posterPath, seasonNumber }) => {
+          return (
           <ContentCard
             key={id}
             id={id}
@@ -31,11 +32,12 @@ const FavoritesList = () => {
             releaseDate={releaseDate}
             voteAverage={voteAverage}
             posterPath={posterPath}
+            seasonNumber={seasonNumber}
             isBookmarked={true}
-            onBookmarkToggle={() => removeFromFavoritesList(id)}
+            onBookmarkToggle={() => removeFromFavoritesList({ id, contentType, title, releaseDate, voteAverage, posterPath, seasonNumber })}
             favoritesPath={true}
           />
-        ))}
+        )})}
       </div>
     </section>
   );

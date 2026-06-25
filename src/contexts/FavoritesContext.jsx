@@ -3,6 +3,13 @@ import { createContext, useCallback, useContext, useEffect, useState } from "rea
 const LOCAL_STORAGE_KEY = "favoritesList";
 const FavoritesContext = createContext(null);
 
+const isSameFavorite = (fav1, fav2) => {
+  if (fav1.seasonNumber !== undefined && fav2.seasonNumber !== undefined) {
+    return fav1.id === fav2.id && fav1.seasonNumber === fav2.seasonNumber;
+  }
+  return fav1.id === fav2.id;
+};
+
 const parseLocalStorageFavorites = () => {
   if (typeof window === "undefined") return [];
 
@@ -32,7 +39,7 @@ export const FavoritesProvider = ({ children }) => {
 
   const addToFavorites = useCallback((contentInfo) => {
     setFavoritesList((previousFavorites) => {
-      if (previousFavorites.some((favorite) => favorite.id === contentInfo.id)) {
+      if (previousFavorites.some((favorite) => isSameFavorite(favorite, contentInfo))) {
         return previousFavorites;
       }
 
@@ -40,8 +47,10 @@ export const FavoritesProvider = ({ children }) => {
     });
   }, []);
 
-  const removeFromFavoritesList = useCallback((id) => {
-    setFavoritesList((previousFavorites) => previousFavorites.filter((favorite) => favorite.id !== id));
+  const removeFromFavoritesList = useCallback((contentInfo) => {
+    setFavoritesList((previousFavorites) => 
+      previousFavorites.filter((favorite) => !isSameFavorite(favorite, contentInfo))
+    );
   }, []);
 
   const removeAllFavorites = useCallback(() => {
@@ -50,10 +59,10 @@ export const FavoritesProvider = ({ children }) => {
 
   const toggleFavorite = useCallback((contentInfo) => {
     setFavoritesList((previousFavorites) => {
-      const alreadyFavorite = previousFavorites.some((favorite) => favorite.id === contentInfo.id);
+      const alreadyFavorite = previousFavorites.some((favorite) => isSameFavorite(favorite, contentInfo));
 
       if (alreadyFavorite) {
-        return previousFavorites.filter((favorite) => favorite.id !== contentInfo.id);
+        return previousFavorites.filter((favorite) => !isSameFavorite(favorite, contentInfo));
       }
 
       return [...previousFavorites, contentInfo];

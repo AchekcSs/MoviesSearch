@@ -4,12 +4,33 @@ import { Bookmark, BookmarkOff, StarIcon } from "lucide-react";
 import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
 
-const ContentCard = ({ id, contentType, title, releaseDate, voteAverage, posterPath, isBookmarked = false, onBookmarkToggle, favoritesPath = false }) => {
-  const contentInfo = { id, contentType, title, releaseDate, voteAverage, posterPath };
+const ContentCard = ({
+  id,
+  contentType,
+  title,
+  releaseDate,
+  voteAverage,
+  posterPath,
+  isBookmarked = false,
+  onBookmarkToggle,
+  favoritesPath = false,
+  seasonNumber,
+}) => {
+  const contentInfo = { id, contentType, title, releaseDate, voteAverage, posterPath, seasonNumber };
+
+  let targetPath = `/${contentType}/${id}`;
+
+  if (favoritesPath) {
+    targetPath = seasonNumber ? `/favorites/${contentType}/${id}/${seasonNumber}` : `/favorites/${contentType}/${id}`;
+  } else {
+    if (seasonNumber) {
+      targetPath = `/${contentType}/${id}/${seasonNumber}`;
+    }
+  }
 
   return (
-    <Link to={favoritesPath ? `/favorites/${contentType}/${id}` : `/${contentType}/${id}`}>
-      <div className="outline min-h-130 w-full rounded-md overflow-hidden transition-transform duration-300 md:hover:scale-102 relative group">
+    <Link to={targetPath}>
+      <div className="outline min-h-130 w-full rounded-md overflow-hidden transition-transform duration-300 md:hover:scale-102 relative">
         <div className="h-110 overflow-hidden flex items-center justify-center">
           <img
             src={posterPath ? `${TMDB_POSTER_URL}${posterPath}` : "/src/assets/images/image-not-found.svg"}
@@ -28,7 +49,7 @@ const ContentCard = ({ id, contentType, title, releaseDate, voteAverage, posterP
           <span className="text-muted-foreground font-semibold">{releaseDate ? releaseDate.slice(0, 4) : "????"}</span>
         </div>
         <Button
-          className="py-5.5 absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          className="py-5.5 absolute top-3 right-3"
           onClick={(event) => {
             event.preventDefault();
             event.stopPropagation();

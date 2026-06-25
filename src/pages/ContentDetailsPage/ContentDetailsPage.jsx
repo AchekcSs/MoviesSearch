@@ -110,7 +110,7 @@ const ContentDetailsPage = () => {
           />
           {contentVideoTrailer && !isTVSeries && <ContentDetailsTrailer trailer={contentVideoTrailerUrl} />}
           {!seasonNumber && images && images.length !== 0 && <ContentImagesSection images={images} />}
-          {isTVSeries && <ContentSeasonsList seasons={content.seasons} contentType={contentType} seriesId={id} />}
+          {isTVSeries && !isFavorites && <ContentSeasonsList seasons={content.seasons} contentType={contentType} seriesId={id} />}
         </main>
       </Container>
       <Footer />
