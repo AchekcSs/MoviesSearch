@@ -17,7 +17,7 @@ const ContentCard = ({
   seasonNumber,
 }) => {
   const contentInfo = { id, contentType, title, releaseDate, voteAverage, posterPath, seasonNumber };
-  const hasSeasonNumber = seasonNumber !== undefined && seasonNumber !== null
+  const hasSeasonNumber = seasonNumber !== undefined && seasonNumber !== null;
 
   let targetPath = `/${contentType}/${id}`;
 
@@ -31,23 +31,23 @@ const ContentCard = ({
 
   return (
     <Link to={targetPath}>
-      <div className="outline min-h-130 w-full rounded-md overflow-hidden transition-transform duration-300 md:hover:scale-102 relative">
-        <div className="h-110 overflow-hidden flex items-center justify-center">
+      <div className="outline w-full rounded-md overflow-hidden transition-transform duration-300 md:hover:scale-102 relative h-full">
+        <div className="max-h-110 overflow-hidden flex items-center justify-center">
           <img
             src={posterPath ? `${TMDB_POSTER_URL}${posterPath}` : "/src/assets/images/image-not-found.svg"}
             alt={title}
             className="w-full h-full object-cover"
           />
         </div>
-        <div className="px-4 py-4">
-          <div className="flex items-start justify-between mb-2">
-            <h4 className="text-[20px] font-medium max-w-42.5">{title}</h4>
+        <div className="px-4 py-4 outline">
+          <h4 className="text-[20px] font-medium max-w-full truncate mb-2">{title}</h4>
+          <div className="flex items-center justify-between flex-wrap">
             <div className="flex items-center gap-1.5">
               <StarIcon color="#FFC107" fill="#FFC107" />
               <span className="text-[1.25rem] font-semibold">{voteAverage ? voteAverage.toFixed(1) : "?"}</span>
             </div>
+            <span className="text-muted-foreground font-semibold">{releaseDate ? releaseDate.slice(0, 4) : "????"}</span>
           </div>
-          <span className="text-muted-foreground font-semibold">{releaseDate ? releaseDate.slice(0, 4) : "????"}</span>
         </div>
         <Button
           className="py-5.5 absolute top-3 right-3 hidden md:flex"

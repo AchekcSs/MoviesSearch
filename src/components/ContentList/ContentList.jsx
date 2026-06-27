@@ -17,6 +17,7 @@ const ContentList = () => {
   const sortedMovies = useMemo(() => sortContent(content, sortBy), [content, sortBy]);
 
   return (
+    
     <section className="flex flex-col items-center gap-12 pt-10 pb-30">
       {searchParams.query !== "" && (
         <div>
@@ -56,7 +57,7 @@ const ContentList = () => {
         </div>
       )}
       {totalResults !== 0 && <FiltersPanel />}
-      <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {isLoading ? (
           <>
             <SkeletonContentCard />

@@ -10,7 +10,7 @@ const Hero = () => {
         Search thousands of movies and build your personal watchlist with our curated explorer. Cinematic immersion meets effortless
         discovery.
       </p>
-      <SearchInput variant="hero" />
+      <SearchInput />
     </section>
   );
 };
